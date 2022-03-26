@@ -67,6 +67,14 @@ WHERE area >= ALL
                     FROM world y
                     WHERE y.continent=x.continent
                     AND population>0);
+--- Method 2: 
+SELECT w1.continent, name, w1.area 
+FROM world AS w1
+  JOIN (SELECT continent, MAX(area) AS area
+          FROM world 
+         GROUP BY continent) AS w2
+    ON w1.continent = w2.continent
+   AND w1.area = w2.area
 
 --- 8. First country of each continent (alphabetically)
 --- List each continent and the name of the country that comes first alphabetically.
